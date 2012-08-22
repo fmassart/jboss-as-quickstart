@@ -16,15 +16,17 @@
  */
 package org.jboss.as.quickstarts.ear.ejb;
 
-import javax.ejb.Stateful;
+import javax.ejb.Schedule;
+import javax.ejb.Stateless;
 
 /**
  * A simple Hello World EJB. The EJB does not use an interface.
  * 
  * @author paul.robinson@redhat.com, 2011-12-21
  */
-@Stateful
+@Stateless
 public class GreeterEJB {
+
 	/**
 	 * This method takes a name and returns a personalised greeting.
 	 * 
@@ -34,5 +36,10 @@ public class GreeterEJB {
 	 */
 	public String sayHello(String name) {
 		return "Hello " + name;
+	}
+
+	@Schedule(second="*/30", minute="*",hour="*", persistent=false)
+	public void sayHelloAutomatic() {
+		System.out.println("Hello robot !");
 	}
 }
